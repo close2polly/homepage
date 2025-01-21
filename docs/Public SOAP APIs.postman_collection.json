@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "f757a290-28d1-4ef0-bfcf-d077003568b3",
+		"name": "Public SOAP APIs",
+		"description": "This is a collection of different SOAP APIs that are completley public and do not require any authentication, making it easier for consumers to play with and understand what APIs are all about by seeing the many different ways in which APIs can be used.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37698141",
+		"_collection_link": "https://www.postman.com/lunar-module-geoscientist-22789716/workspace/gb/collection/37698141-f757a290-28d1-4ef0-bfcf-d077003568b3?action=share&source=collection_link&creator=37698141"
+	},
+	"item": [
+		{
+			"name": "Calculator",
+			"item": [
+				{
+					"name": "Divide",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//забирание [ml через json через переменную response",
+									"var response = xml2Json(responseBody);",
+									"",
+									"//проверка на отсутствие тега, параметра",
+									"pm.test(\"Soap responce isn't fault\", function () {",
+									"    pm.expect(pm.response.text()).to.not.include(\"soap:Fault\");",
+									"});",
+									"",
+									"//проверка на совпадение значений",
+									"pm.test(\"Answer correct\", function() {",
+									"    pm.expect(response[\"soap:Envelope\"][\"soap:Body\"][\"DivideResponse\"][\"DivideResult\"]).eql(\"1\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "SOAPAction",
+								"value": "http://tempuri.org/Divide",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <Divide xmlns=\"http://tempuri.org/\">\n      <intA>5</intA>\n      <intB>5</intB>\n    </Divide>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "http://www.dneonline.com/calculator.asmx",
+							"protocol": "http",
+							"host": [
+								"www",
+								"dneonline",
+								"com"
+							],
+							"path": [
+								"calculator.asmx"
+							]
+						},
+						"description": "Divides two integers."
+					},
+					"response": []
+				},
+				{
+					"name": "Multiply",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//забирание [ml через json через переменную response",
+									"var response = xml2Json(responseBody);",
+									"",
+									"//проверка на отсутствие тега, параметра",
+									"pm.test(\"Soap responce isn't fault\", function () {",
+									"    pm.expect(pm.response.text()).to.not.include(\"soap:Fault\");",
+									"});",
+									"",
+									"//проверка на совпадение значений",
+									"pm.test(\"Answer correct\", function() {",
+									"    pm.expect(response[\"soap:Envelope\"][\"soap:Body\"][\"MultiplyResponse\"][\"MultiplyResult\"]).eql(\"16\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml; charset=utf-8",
+								"type": "text"
+							},
+							{
+								"key": "SOAPAction",
+								"value": "http://tempuri.org/Multiply",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <Multiply xmlns=\"http://tempuri.org/\">\n      <intA>4</intA>\n      <intB>4</intB>\n    </Multiply>\n  </soap:Body>\n</soap:Envelope>"
+						},
+						"url": {
+							"raw": "http://www.dneonline.com/calculator.asmx",
+							"protocol": "http",
+							"host": [
+								"www",
+								"dneonline",
+								"com"
+							],
+							"path": [
+								"calculator.asmx"
+							]
+						},
+						"description": "Multiplies two integers."
+					},
+					"response": []
+				}
+			],
+			"description": "A simple SOAP API calculator.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Regnum ",
+			"value": ""
+		},
+		{
+			"key": "Result",
+			"value": ""
+		}
+	]
+}
